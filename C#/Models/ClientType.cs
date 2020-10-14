@@ -3,6 +3,7 @@
     public enum ClientType
     {
         HTTP,
+        HTTPS,
         ICMP,
         FTP,
         SFTP,

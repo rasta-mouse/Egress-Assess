@@ -50,12 +50,23 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Clients\Http.cs" />
+    <Compile Include="Clients\ClientBase.cs" />
+    <Compile Include="Clients\DnsResolveClient.cs" />
+    <Compile Include="Clients\DnsTxtClient.cs" />
+    <Compile Include="Clients\FtpClient.cs" />
+    <Compile Include="Clients\HttpClient.cs" />
+    <Compile Include="Clients\HttpsClient.cs" />
+    <Compile Include="Clients\IcmpClient.cs" />
+    <Compile Include="Clients\SftpClient.cs" />
+    <Compile Include="Clients\SmbClient.cs" />
+    <Compile Include="Clients\SmtpClient.cs" />
+    <Compile Include="Clients\SmtpOutlookClient.cs" />
     <Compile Include="Core\ConnectionTest.cs" />
     <Compile Include="Core\Helpers.cs" />
     <Compile Include="Core\CustomConsole.cs" />
     <Compile Include="Data\Generation.cs" />
-    <Compile Include="Models\Client.cs" />
+    <Compile Include="Models\ClientType.cs" />
+    <Compile Include="Models\DataType.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

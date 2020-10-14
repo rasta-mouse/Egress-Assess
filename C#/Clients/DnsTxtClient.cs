@@ -5,7 +5,7 @@ using System.Text;
 
 namespace EgressAssess.Clients
 {
-    class Http
+    class DnsTxtClient : ClientBase
     {
     }
 }

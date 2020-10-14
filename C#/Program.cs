@@ -1,5 +1,10 @@
 ﻿using CommandLine;
 
+using EgressAssess.Clients;
+using EgressAssess.Core;
+using EgressAssess.Models;
+
+using System;
 using System.Collections.Generic;
 
 namespace EgressAssess
@@ -69,8 +74,76 @@ namespace EgressAssess
 
         static void RunOptions(Options opts)
         {
-            //handle options
+            if (!Enum.TryParse(opts.Client, true, out ClientType clientType))
+            {
+                CustomConsole.WriteError("Unknown ClientType");
+                return;
+            }
+
+            if (!Enum.TryParse(opts.Datatype, true, out DataType dataType))
+            {
+                CustomConsole.WriteError("Unknown DataType");
+                return;
+            }
+
+            ClientBase client;
+
+            switch (clientType)
+            {
+                case ClientType.HTTP:
+                    client = new HttpClient();
+                    break;
+                case ClientType.HTTPS:
+                    client = new HttpsClient();
+                    break;
+                case ClientType.ICMP:
+                    client = new IcmpClient();
+                    break;
+                case ClientType.FTP:
+                    client = new FtpClient();
+                    break;
+                case ClientType.SFTP:
+                    client = new SftpClient();
+                    break;
+                case ClientType.SMB:
+                    client = new SmbClient();
+                    break;
+                case ClientType.DNS_TXT:
+                    client = new DnsTxtClient();
+                    break;
+                case ClientType.DNS_Resolved:
+                    client = new DnsResolveClient();
+                    break;
+                case ClientType.SMTP:
+                    client = new SmtpClient();
+                    break;
+                case ClientType.SMTP_Outlook:
+                    client = new SmtpOutlookClient();
+                    break;
+                default:
+                    return;
+            }
+
+            client.Target = opts.Target;
+            client.DataType = dataType;
+            client.Size = opts.Size;
+
+            if (opts.Port !=0)
+            {
+                client.Port = opts.Port;
+            }
+
+            if (!opts.NoPing)
+            {
+                var connectionTest = new ConnectionTest(client);
+
+                if (!connectionTest.TestConnection)
+                {
+                    return;
+                }
+            }
         }
+
         static void HandleParseError(IEnumerable<Error> errs)
         {
             //handle errors

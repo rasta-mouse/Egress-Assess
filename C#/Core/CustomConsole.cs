@@ -8,5 +8,10 @@ namespace EgressAssess.Core
         {
             Console.WriteLine($"[*] {line}");
         }
+
+        public static void WriteError(string error)
+        {
+            Console.WriteLine($"[*] {error}");
+        }
     }
 }
